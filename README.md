@@ -75,7 +75,8 @@ This project implements a production-ready HFT system with three integrated phas
 ### Installation
 ```bash
 git clone https://github.com/yourusername/hft-network-optimizer.git
-cd hft-network-optimizer
+cd hft
+
 
 # Install dependencies
 pip install -r requirements.txt
