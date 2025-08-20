@@ -1,0 +1,218 @@
+# Docker Compose configuration for HFT Trading System
+# Supports both development and production environments
+
+version: '3.8'
+
+services:
+  # Main HFT trading application
+  hft-trading:
+    build:
+      context: .
+      dockerfile: configs/deployment/Dockerfile
+      target: production
+    container_name: hft-trading-system
+    restart: unless-stopped
+    
+    # Environment configuration
+    environment:
+      - HFT_MODE=production
+      - LOG_LEVEL=INFO
+      - TZ=America/New_York
+      - PYTHONUNBUFFERED=1
+    
+    # Volume mounts for persistent data
+    volumes:
+      - ./logs:/app/logs
+      - ./reports:/app/reports
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+      - trading_data:/app/trading_data
+    
+    # Expose monitoring port
+    ports:
+      - "8080:8080"
+    
+    # Health check configuration
+    healthcheck:
+      test: ["CMD", "python", "-c", "from src.python.data.advanced_technical_indicators import AdvancedTechnicalEngine; AdvancedTechnicalEngine()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    # Resource limits for production stability
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '1.0'
+          memory: 2G
+    
+    # Network configuration
+    networks:
+      - hft-network
+    
+    # Dependencies
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  # Redis for caching and real-time data
+  redis:
+    image: redis:7-alpine
+    container_name: hft-redis
+    restart: unless-stopped
+    
+    # Redis configuration
+    command: redis-server --appendonly yes --maxmemory 512mb --maxmemory-policy allkeys-lru
+    
+    # Persistent storage
+    volumes:
+      - redis_data:/data
+    
+    # Internal port only
+    expose:
+      - "6379"
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    
+    networks:
+      - hft-network
+
+  # Nginx reverse proxy for production
+  nginx:
+    image: nginx:alpine
+    container_name: hft-nginx
+    restart: unless-stopped
+    
+    # Configuration
+    volumes:
+      - ./configs/deployment/nginx.conf:/etc/nginx/nginx.conf:ro
+    
+    # External access
+    ports:
+      - "80:80"
+      - "443:443"
+    
+    networks:
+      - hft-network
+    
+    depends_on:
+      - hft-trading
+    
+    # Only run in production
+    profiles:
+      - production
+
+  # Development database for backtesting
+  postgres:
+    image: postgres:15-alpine
+    container_name: hft-postgres
+    restart: unless-stopped
+    
+    environment:
+      - POSTGRES_DB=hft_trading
+      - POSTGRES_USER=hft_user
+      - POSTGRES_PASSWORD=hft_password
+      - POSTGRES_INITDB_ARGS=--auth-host=scram-sha-256
+    
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./configs/database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    
+    ports:
+      - "5432:5432"
+    
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U hft_user -d hft_trading"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    
+    networks:
+      - hft-network
+    
+    # Only for development
+    profiles:
+      - development
+
+  # Monitoring with Prometheus (optional)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: hft-prometheus
+    restart: unless-stopped
+    
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    
+    volumes:
+      - ./configs/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    
+    ports:
+      - "9090:9090"
+    
+    networks:
+      - hft-network
+    
+    profiles:
+      - monitoring
+
+  # Grafana dashboard (optional)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: hft-grafana
+    restart: unless-stopped
+    
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+      - GF_USERS_ALLOW_SIGN_UP=false
+    
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./configs/monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./configs/monitoring/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+    
+    ports:
+      - "3000:3000"
+    
+    networks:
+      - hft-network
+    
+    depends_on:
+      - prometheus
+    
+    profiles:
+      - monitoring
+
+# Named volumes for data persistence
+volumes:
+  trading_data:
+    driver: local
+  redis_data:
+    driver: local
+  postgres_data:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+
+# Custom network for service communication
+networks:
+  hft-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

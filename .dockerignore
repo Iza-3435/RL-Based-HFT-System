@@ -1,0 +1,198 @@
+# Docker ignore file for HFT Trading System
+# Optimize Docker build context by excluding unnecessary files
+
+# Git files
+.git
+.gitignore
+.gitattributes
+
+# Documentation
+*.md
+docs/
+README*
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.env
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Testing files
+.tox/
+.coverage
+.pytest_cache/
+htmlcov/
+.cache
+.coverage.*
+coverage.xml
+*.cover
+.hypothesis/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# PyCharm
+.idea/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Logs and temporary files
+logs/
+*.log
+*.out
+*.err
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Generated reports and outputs
+reports/
+outputs/
+*.csv
+*.json
+*.xml
+*.html
+
+# Data files (potentially large)
+data/
+datasets/
+*.data
+*.db
+*.sqlite
+*.sqlite3
+
+# Model files (can be large)
+models/
+*.pkl
+*.pickle
+*.pt
+*.pth
+*.h5
+*.hdf5
+*.ckpt
+*.pb
+
+# C++ build artifacts
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+CMakeFiles/
+cmake_install.cmake
+CMakeCache.txt
+Makefile.bak
+
+# Docker files (avoid recursive Docker builds)
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# CI/CD files
+.github/
+.gitlab-ci.yml
+.travis.yml
+.circleci/
+Jenkinsfile
+
+# Package manager files
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+
+# Archive files
+*.zip
+*.tar.gz
+*.tar.bz2
+*.rar
+*.7z
+
+# Configuration files with sensitive data
+.env.local
+.env.production
+.env.development
+secrets/
+private/
+*.key
+*.pem
+*.crt
+
+# Development tools
+.pre-commit-config.yaml
+.flake8
+.pylintrc
+mypy.ini
+setup.cfg
+tox.ini
+
+# Performance profiling
+*.prof
+*.cprof
+
+# Large example files
+examples/large/
+benchmarks/
+performance_tests/
+
+# Third-party libraries (should be installed in container)
+vendor/
+third_party/

@@ -1,0 +1,54 @@
+# HFT Trading System Dependencies
+
+# Core Scientific Computing
+numpy>=1.24.0
+pandas>=2.0.0
+scipy>=1.10.0
+
+# Machine Learning
+torch>=2.0.0
+scikit-learn>=1.3.0
+
+# Financial Data
+yfinance>=0.2.0
+
+# Async Programming
+asyncio-mqtt>=0.11.0
+
+# Data Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.15.0
+
+# Web Framework (for monitoring)
+fastapi>=0.100.0
+uvicorn>=0.22.0
+
+# Configuration
+PyYAML>=6.0
+
+# Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-benchmark>=4.0.0
+
+# Development Tools
+black>=23.0.0
+flake8>=6.0.0
+mypy>=1.4.0
+
+# Performance Profiling
+line-profiler>=4.0.0
+memory-profiler>=0.61.0
+
+# Monitoring & Metrics
+prometheus-client>=0.17.0
+
+# Utilities
+tqdm>=4.65.0
+python-dotenv>=1.0.0
+
+# Optional High Performance Libraries
+# Uncomment if needed:
+# numba>=0.57.0
+# cython>=0.29.0

@@ -1,0 +1,81 @@
+# Basic Trading Configuration for HFT System
+# This file contains essential settings for trading operations
+
+# Trading Symbols - liquid instruments suitable for HFT
+symbols:
+  - "AAPL"    # Apple Inc
+  - "MSFT"    # Microsoft Corp
+  - "GOOGL"   # Alphabet Inc
+  - "TSLA"    # Tesla Inc
+  - "NVDA"    # NVIDIA Corp
+  - "SPY"     # SPDR S&P 500 ETF
+
+# Trading Venues - exchanges and dark pools
+venues:
+  - "NYSE"     # New York Stock Exchange
+  - "NASDAQ"   # NASDAQ
+  - "ARCA"     # NYSE Arca
+  - "IEX"      # Investors Exchange
+
+# Risk Management Limits
+risk_limits:
+  max_position_size: 10000      # Maximum shares per symbol
+  max_total_exposure: 100000    # Maximum total dollar exposure
+  max_daily_loss: 5000         # Maximum daily loss in dollars
+  stop_loss_percentage: 0.02    # 2% stop loss
+  volatility_threshold: 0.05    # 5% volatility limit
+  
+# Order Management
+order_settings:
+  default_order_size: 100       # Default number of shares
+  max_order_size: 1000         # Maximum order size
+  min_order_size: 1            # Minimum order size
+  timeout_seconds: 30          # Order timeout
+  
+# Venue-specific settings
+venue_configs:
+  NYSE:
+    maker_fee: 0.0003           # 0.03 cents per share
+    taker_fee: 0.0003
+    rebate: 0.0001
+    latency_target_us: 250      # Target latency in microseconds
+    
+  NASDAQ:
+    maker_fee: 0.0003
+    taker_fee: 0.0003
+    rebate: 0.0001
+    latency_target_us: 230
+    
+  ARCA:
+    maker_fee: 0.0002
+    taker_fee: 0.0003
+    rebate: 0.0002
+    latency_target_us: 240
+    
+  IEX:
+    maker_fee: 0.0000           # IEX doesn't charge maker fees
+    taker_fee: 0.0009
+    rebate: 0.0000
+    latency_target_us: 400      # Higher latency due to speed bump
+
+# Strategy Settings
+strategies:
+  market_making:
+    enabled: true
+    spread_target: 0.01         # Target 1 cent spread
+    inventory_limit: 500        # Max inventory per symbol
+    
+  arbitrage:
+    enabled: false              # Disabled by default
+    min_spread: 0.005          # Minimum spread to capture
+    
+  momentum:
+    enabled: false              # Disabled by default
+    lookback_periods: 20        # Periods for momentum calculation
+
+# Performance Monitoring
+monitoring:
+  log_level: "INFO"
+  performance_reporting: true
+  real_time_analytics: true
+  latency_monitoring: true

@@ -1,0 +1,127 @@
+# Machine Learning Model Configuration
+# Settings for ML models used in HFT trading system
+
+# Latency Prediction Model
+latency_predictor:
+  model_type: "ensemble"        # ensemble, lstm, linear
+  lookback_window: 20          # Number of historical data points
+  update_frequency: 100        # Update model every N ticks
+  features:
+    - "venue_congestion"       # Network congestion metrics
+    - "order_book_depth"       # Market depth features
+    - "volatility"             # Price volatility
+    - "volume_profile"         # Volume distribution
+    - "time_of_day"           # Temporal patterns
+  
+  ensemble_config:
+    models:
+      - type: "random_forest"
+        n_estimators: 100
+        max_depth: 10
+      - type: "xgboost"
+        n_estimators: 50
+        learning_rate: 0.1
+      - type: "linear_regression"
+        regularization: "l2"
+
+# RL Order Routing Model
+rl_router:
+  algorithm: "dqn"              # Deep Q-Network
+  network_architecture:
+    - 256                       # Hidden layer 1
+    - 128                       # Hidden layer 2
+    - 64                        # Hidden layer 3
+  
+  training_params:
+    learning_rate: 0.001
+    batch_size: 256
+    replay_buffer_size: 100000
+    target_update_frequency: 1000
+    exploration_rate: 0.1
+    exploration_decay: 0.995
+    
+  reward_function:
+    latency_weight: -0.5        # Penalize high latency
+    cost_weight: -0.3          # Penalize high costs
+    fill_rate_weight: 0.8      # Reward high fill rates
+    
+# Technical Indicators
+technical_indicators:
+  lookback_periods:
+    short: 20                  # Short-term indicators
+    medium: 50                 # Medium-term indicators
+    long: 200                  # Long-term indicators
+    microstructure: 10         # High-frequency features
+    
+  momentum_indicators:
+    - "rsi"                    # Relative Strength Index
+    - "macd"                   # Moving Average Convergence Divergence
+    - "roc"                    # Rate of Change
+    - "williams_r"             # Williams %R
+    
+  volatility_indicators:
+    - "bollinger_bands"        # Bollinger Bands
+    - "atr"                    # Average True Range
+    - "keltner_channels"       # Keltner Channels
+    
+  volume_indicators:
+    - "obv"                    # On-Balance Volume
+    - "vwap"                   # Volume Weighted Average Price
+    - "volume_profile"         # Volume distribution
+
+# Feature Engineering
+feature_engineering:
+  normalization: "z_score"     # z_score, min_max, robust
+  lag_features: [1, 2, 5, 10] # Create lagged versions of features
+  rolling_statistics:
+    - "mean"
+    - "std"
+    - "min"
+    - "max"
+  
+  interaction_features: true   # Create feature interactions
+  polynomial_features: false  # Create polynomial features (expensive)
+
+# Model Training
+training:
+  validation_split: 0.2       # 20% for validation
+  test_split: 0.1            # 10% for testing
+  cross_validation: 5        # 5-fold cross validation
+  
+  early_stopping:
+    patience: 10             # Stop if no improvement for 10 epochs
+    min_delta: 0.001        # Minimum improvement threshold
+    
+  model_selection:
+    metric: "accuracy"       # Primary metric for model selection
+    direction: "maximize"    # Maximize accuracy
+    
+# Model Deployment
+deployment:
+  model_update_frequency: "daily"  # How often to retrain models
+  a_b_testing: true               # Enable A/B testing of models
+  fallback_model: "linear"        # Fallback if main model fails
+  
+  performance_thresholds:
+    min_accuracy: 0.65            # Minimum acceptable accuracy
+    max_latency_ms: 1.0          # Maximum prediction latency
+    
+# Data Pipeline
+data_pipeline:
+  batch_size: 1000              # Training batch size
+  prefetch_buffer: 10           # Data prefetch buffer
+  shuffle_buffer: 10000         # Data shuffle buffer
+  
+  data_augmentation:
+    noise_level: 0.01           # Add small amount of noise
+    time_shift: true            # Shift time series data
+    
+# Monitoring
+model_monitoring:
+  drift_detection: true         # Monitor for model drift
+  performance_tracking: true    # Track model performance
+  feature_importance: true      # Monitor feature importance changes
+  
+  alerts:
+    accuracy_threshold: 0.60    # Alert if accuracy drops below
+    latency_threshold_ms: 2.0   # Alert if prediction latency too high
