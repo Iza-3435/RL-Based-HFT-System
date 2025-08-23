@@ -1,6 +1,6 @@
 # HFT Trading System
 
-**High-frequency trading platform with reinforcement learning, real-time market data processing, and microsecond latency execution for institutional-grade algorithmic trading.**
+**High frequency trading platform with reinforcement learning, real-time market data processing, and microsecond latency execution for institutional-grade algorithmic trading.**
 
 ## Overview
 
