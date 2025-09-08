@@ -1,10 +1,10 @@
 # HFT Trading System
 
-**High frequency trading platform with reinforcement learning, real-time market data processing, and microsecond latency execution for institutional-grade algorithmic trading.**
+**High frequency trading platform with reinforcement learning, real-time market data processing, and millisecond latency execution for algorithmic trading.**
 
 ## Overview
 
-A production ready HFT system combining C++ performance with Python machine learning for institutional-quality algorithmic trading. Features include RL-based order routing, real-time risk management, and multi-venue execution across major US exchanges this will provide an simulation for HFT system.
+A production ready HFT system combining C++ performance with Python machine learning for algorithmic trading. Features include RL-based order routing, real-time risk management, and multi-venue execution across major US exchanges this will provide an simulation for HFT system.
 
 **Key Capabilities:**
 - Millisecond latency execution
