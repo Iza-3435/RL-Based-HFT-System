@@ -7,7 +7,7 @@
 A production ready HFT system combining C++ performance with Python machine learning for institutional-quality algorithmic trading. Features include RL-based order routing, real-time risk management, and multi-venue execution across major US exchanges this will provide an simulation for HFT system.
 
 **Key Capabilities:**
-- Microsecond latency execution
+- Millisecond latency execution
 - Reinforcement learning order routing 
 - Real-time market data processing (180K+ ticks/sec)
 - Multi-venue support (NYSE, NASDAQ, ARCA, IEX, CBOE)
