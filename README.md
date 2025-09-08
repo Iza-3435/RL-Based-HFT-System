@@ -9,7 +9,7 @@ A production ready HFT system combining C++ performance with Python machine lear
 **Key Capabilities:**
 - Millisecond latency execution
 - Reinforcement learning order routing 
-- Real-time market data processing (180K+ ticks/sec)
+- Real-time market data processing (10K+ ticks/sec)
 - Multi-venue support (NYSE, NASDAQ, ARCA, IEX, CBOE)
 - Professional backtesting and analytics
 
@@ -17,11 +17,11 @@ A production ready HFT system combining C++ performance with Python machine lear
 
 | Component | Latency | Throughput |
 |-----------|---------|------------|
-| Market Data Processing | <1μs | 180K+ ticks/sec |
-| ML Feature Extraction | 5.15μs | - |
-| Order Routing Decision | <50μs | - |
-| Trade Execution | 200μs avg | - |
-| Risk Calculations | <1μs | Real-time |
+| Market Data Processing | 1-5ms | 10K+ ticks/sec |
+| ML Feature Extraction | 5-20ms | - |
+| Order Routing Decision | sub 10ms | - |
+| Trade Execution | 10-50ms avg | - |
+| Risk Calculations | <5ms | Real-time |
 
 ## Quick Start
 
@@ -71,7 +71,7 @@ The platform uses a hybrid C++/Python architecture optimized for ultra-low laten
 ┌─────────────┐    ┌──────────────┐    ┌─────────────┐    ┌──────────────┐    ┌─────────────┐
 │Market Data  │───▶│Feature       │───▶│ML Models    │───▶│Routing       │───▶│Execution    │
 │Feed (C++)   │    │Extraction    │    │(LSTM/RL)    │    │Decision      │    │Engine       │
-│180K+ tps    │    │<1μs          │    │65-80% acc   │    │<50μs         │    │200μs avg    │
+│10K+ tps     │    │5-15ms        │    │65-80% acc   │    │<10ms         │    │sim(5-15ms)  │
 └─────────────┘    └──────────────┘    └─────────────┘    └──────────────┘    └─────────────┘
        │                   │                   │                   │                   │
        ▼                   ▼                   ▼                   ▼                   ▼
