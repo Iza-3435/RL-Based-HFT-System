@@ -62,7 +62,7 @@ The platform uses a hybrid C++/Python architecture optimized for ultra-low laten
 
 - **C++ Core**: Market data processing, order execution, risk calculations
 - **Python ML**: Reinforcement learning models, strategy development, analytics
-- **Real-time Pipeline**: Sub-microsecond feature extraction and decision making
+- **Real-time Pipeline**: millisecond feature extraction and decision making
 - **Multi-venue Support**: NYSE, NASDAQ, ARCA, IEX, CBOE integration
 
 ### Data Flow Pipeline
