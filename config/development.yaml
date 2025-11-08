@@ -1,0 +1,25 @@
+trading:
+  symbols:
+    - AAPL
+    - MSFT
+    - GOOGL
+  max_position_size: 1000
+  max_portfolio_value: 100000
+  risk_limit_pct: 0.05
+
+network:
+  timeout_ms: 2000
+  retry_attempts: 5
+
+ml:
+  enable_routing_optimizer: true
+  enable_latency_prediction: true
+  model_update_interval: 600
+  training_samples: 1000
+
+system:
+  mode: balanced
+  log_level: verbose
+  data_dir: ./data
+  log_dir: ./logs
+  enable_backtesting: false

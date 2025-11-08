@@ -1,0 +1,32 @@
+trading:
+  symbols:
+    - AAPL
+    - MSFT
+    - GOOGL
+    - TSLA
+    - NVDA
+    - META
+    - AMZN
+    - NFLX
+    - JPM
+    - BAC
+  max_position_size: 10000
+  max_portfolio_value: 1000000
+  risk_limit_pct: 0.02
+
+network:
+  timeout_ms: 1000
+  retry_attempts: 3
+
+ml:
+  enable_routing_optimizer: true
+  enable_latency_prediction: true
+  model_update_interval: 3600
+  training_samples: 10000
+
+system:
+  mode: production
+  log_level: normal
+  data_dir: ./data
+  log_dir: ./logs
+  enable_backtesting: true

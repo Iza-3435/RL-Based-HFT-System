@@ -1,0 +1,103 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+
+# Type checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Logs
+*.log
+logs/
+*.out
+
+# Data
+data/
+*.csv
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+
+# Models
+models/saved/
+*.pt
+*.pth
+*.ckpt
+
+# Reports
+reports/
+backtest_results/
+*_report_*.json
+*_report_*.html
+complete_backtest_data_*.json
+latency_model_*.pt
+historical_backtest_*.html
+monte_carlo_analysis_*.html
+stress_test_report_*.html
+
+# Demo files
+demo_*.py
+quick_demo.py
+test_animated_progress.py
+
+# Secrets
+.env
+*.key
+*.pem
+credentials.json
+
+# Docker
+.dockerignore
+
+# Monitoring
+prometheus_data/
+grafana_data/
+
+# Temporary
+tmp/
+temp/
+*.tmp
+
+# Archive folder (local only - old code/docs)
+.archive/
